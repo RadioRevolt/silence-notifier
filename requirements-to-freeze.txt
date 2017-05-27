@@ -1,0 +1,2 @@
+# Freeze to 0.4.* due to breaking changes being introduced in minor bumps
+rtmbot>=0.4.0, < 0.5.*
