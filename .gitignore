@@ -88,5 +88,10 @@ ENV/
 # Rope project settings
 .ropeproject
 
+## CUSTOM IGNORE RULES
 # Ignore IntelliJ and friends
 /.idea
+
+# Private setting files
+rtmbot.conf
+settings.yaml
