@@ -1,1 +1,89 @@
+# Channel on which all messages should be posted.
+# Note that the bot user must be invited to this channel by a human.
 channel: "@someone or #some-channel"
+
+# Location of Radio Revolt REST API, without the version specifier
+rr_api: "https://example.com"
+
+# List of reactions which mean "I volunteer!" when added as reactions to one of
+# this bot's messages.
+recognized_reactions:
+  - "+1"
+  - "thumbsup"
+  - "ok_hand"
+  - "raised_hands"
+  - "white_check_mark"
+
+# Number of seconds to wait between one unit of time, when waiting to send
+# messages. In general, you want this unit to be one minute. Messages are sent
+# with delays between them on 5, 5, 10, 15, 25, 40, 65, 105 etc. units.
+# This parameter is provided to ease testing of warning messages.
+sec_per_min: 60
+
+# Here, the messages which are to be sent are defined.
+# For each possible message, multiple messages are defined. A random one is
+# chosen each time.
+messages:
+  # Warning messages about there being nothing on air. Entries are on the form
+  # i: in which i is the number of earlier warnings. The special n: entry
+  # catches warnings which don't have an i: entry.
+
+  # {show} is replaced with the show currently on air, {channel} with a mention
+  # of @channel and {min} with the number of minutes there have been silence.
+  warnings:
+    0:
+      - "Stille på lufta under sending av {show}! Se https://confluence.smint.no/pages/viewpage.action?pageId=14024759 for en kjapp guide. {channel}"
+    1:
+      - "Fortsatt stille på lufta under sending av {show}! {channel}"
+    2:
+      - "Fremdeles stille på lufta under sending av {show}. Ingen i {channel} som kan fikse? :worried:"
+      - "Ingen som kan løse dette? :grimacing: Stille på lufta under sending av {show} {channel}"
+    n:
+      - "Sover hele teknisk? :stuck_out_tongue: Vært stille på lufta i {min} minutter, nå under sending av {show}. :slightly_smiling_face: {channel}"
+      - "Stille på lufta i {min} minutter, nå under sending av {show} {channel}"
+      - "Framleis stille på lufta under kringkasting av {show}. Det har vore slik i {min} minuttar. Kanskje fleire kan fiksa no som eg prøvar nynorsk? :laughing: Neida, men ver så snill :grimacing: {channel}"
+      - "Beklager at jeg forstyrrer, men det er fortsatt stille på lufta :sweat_smile: Skal egentlig være {show} nå, men vært stille i {min} minutter. {channel}"
+      - "Stille på lufta i {min} minutter, nå under sending av {show}. Vil DU fikse? Sjekk ut https://confluence.smint.no/pages/viewpage.action?pageId=14024759 There will be cake :cake: {channel}"
+      - "Nå trenger lytterne lyd :stuck_out_tongue: Vært stille i {min} minutter. Skal egentlig gå {show} på lufta. {channel}"
+
+  # Message sent when someone is the first to take responsibility to fix a
+  # technical problem.
+
+  # {user} is replaced by a mention of the user taking responsibility and
+  # {channel} by a mention of @channel.
+  first_responsible:
+    - "{user} fikser problemet! :tada: {channel}"
+    - "{user} bryter stillheten :smile: {channel}"
+    - "{user} fikser problemene! Gi den teknikeren en klem {channel}"
+    - "{user} har tatt på seg ansvaret, spander en øl eller brus på den teknikeren! {channel}"
+    - "Kan det fikses? Klart {user} kan! :clap: {channel}"
+
+  # Message sent when someone is taking responsibility to fix a technical
+  # problem, but is not the first person to do so.
+  # {user} is replaced by a mention of the user taking responsibility.
+  new_responsible:
+    - "Det er notert {user} :wink:"
+    - "{user} er også registrert som ansvarlig :blush:"
+
+  # Message sent when someone is undoing taking responsibility, but there still
+  # remain people who have responsibility.
+  # {user} is replaced by a mention of the user leaving responsibility.
+  new_not_responsible:
+    - "Sånn, da er du ikke registrert som ansvarlig lenger {user} :+1:"
+    - "Alright, da er du ikke ansvarlig lenger {user} :slightly_smiling_face:"
+
+  # Message sent when the last person is undoing taking responsibility, leaving
+  # the problem with no one responsible.
+  # {channel} is replaced by a mention of @channel.
+  no_responsible:
+    - "Kontrabeskjed: Vi trenger fortsatt noen til å fikse stille på lufta. Se https://confluence.smint.no/pages/viewpage.action?pageId=14024759 {channel}"
+
+  # Message sent when the silence ends, presumably because the problem was
+  # fixed. {mentions} is replaced by mentions of the relevant users (all if no
+  # one had responsibility, those with responsibility otherwise).
+  sound:
+    - "Der blei det lyd gitt :smile: {mentions}"
+    - "Da var det ikke lenger stille på lufta :tada: {mentions}"
+    - "Lyd på streamen! :microphone: {mentions}"
+    - "Lyd på lufta! :cake: {mentions}"
+    - "Stillheten er brutt :blush: Mission accomplished :sunglasses: {mentions}"

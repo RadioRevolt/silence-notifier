@@ -2,14 +2,15 @@
 rtmbot==0.4.0
 slackclient==1.0.5
 PyYAML==3.12
+requests==2.16.3
 ## The following requirements were added by pip freeze:
 appdirs==1.4.3
 certifi==2017.4.17
 chardet==3.0.3
 idna==2.5
 packaging==16.8
+pkg-resources==0.0.0
 pyparsing==2.2.0
-requests==2.16.3
 six==1.10.0
 urllib3==1.21.1
 websocket-client==0.40.0
