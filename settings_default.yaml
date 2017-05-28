@@ -5,19 +5,6 @@ channel: "@someone or #some-channel"
 # Location of Radio Revolt REST API, without the version specifier
 rr_api: "https://example.com"
 
-# List of reactions which mean "I volunteer!" when added as reactions to one of
-# this bot's messages.
-recognized_reactions:
-  - "+1"
-  - "thumbsup"
-  - "ok_hand"
-  - "raised_hands"
-  - "white_check_mark"
-  - "fire_engine"
-  - "fire"
-  - "mute"
-  - "ambulance"
-
 # Number of seconds to wait between one unit of time, when waiting to send
 # messages. In general, you want this unit to be one minute. Messages are sent
 # with delays between them on 5, 5, 10, 15, 25, 40, 65, 105 etc. units.

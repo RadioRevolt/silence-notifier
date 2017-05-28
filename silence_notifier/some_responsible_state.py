@@ -2,19 +2,6 @@ from silence_notifier.state import State
 
 
 class SomeResponsibleState(State):
-    def handle_reaction_added(self, data):
-        self._handle_additional_responsible(data['user'])
-
-    def handle_reaction_removed(self, data):
-        userid = data['user']
-        self.responsible_usernames.remove(userid)
-        if userid not in self.responsible_usernames and \
-                self.responsible_usernames:
-            # Last mention of this user removed, but there are other responsible
-            self._acknowledge_one_less_responsible(userid)
-        elif not self.responsible_usernames:
-            self._handle_none_responsible()
-
     def handle_timer(self, num_invocations, minutes):
         # Not warning anyone
         pass

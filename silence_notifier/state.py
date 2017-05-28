@@ -40,13 +40,5 @@ class State(metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def handle_reaction_added(self, data):
-        pass
-
-    @abstractmethod
-    def handle_reaction_removed(self, data):
-        pass
-
-    @abstractmethod
     def handle_timer(self, num_invocations, minutes):
         pass

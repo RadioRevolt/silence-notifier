@@ -96,31 +96,6 @@ class SilencePlugin(Plugin):
             logging.debug("Relevant message: " + data['text'])
             self._active_state.handle_message(data)
 
-    def process_reaction_added(self, data):
-        if self.relevant_reaction(data):
-            logging.debug("Relevant reaction added: {} from {} to {}".format(
-                data['reaction'], data['user'], data['item']['ts']
-            ))
-            self._active_state.handle_reaction_added(data)
-
-    def process_reaction_removed(self, data):
-        if self.relevant_reaction(data):
-            logging.debug("Relevant reaction removed: {} from {} to {}".format(
-                data['reaction'], data['user'], data['item']['ts']
-            ))
-            self._active_state.handle_reaction_removed(data)
-
-    def relevant_reaction(self, data):
-        reaction_to_our_message = data['item_user'] == self.userid
-        reaction_to_recent_message = \
-            data['item']['type'] == "message" and \
-            self.communicator.get_first_message_ts() and \
-            data['item']['ts'] >= self.communicator.get_first_message_ts()
-        recognized_reaction = \
-            data['reaction'] in self.settings.recognized_reactions
-        return reaction_to_our_message and reaction_to_recent_message and \
-               recognized_reaction
-
     def relevant_message(self, data):
         mentions_us = self.userid in data['text']
         return mentions_us

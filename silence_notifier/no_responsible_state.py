@@ -4,13 +4,6 @@ from silence_notifier.state import State
 
 
 class NoResponsibleState(State):
-    def handle_reaction_added(self, data):
-        userid = data["user"]
-        self._handle_responsible(userid)
-
-    def handle_reaction_removed(self, data):
-        pass
-
     def handle_timer(self, num_invocations, minutes):
         self.send(
             "warnings",
