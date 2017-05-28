@@ -13,6 +13,10 @@ recognized_reactions:
   - "ok_hand"
   - "raised_hands"
   - "white_check_mark"
+  - "fire_engine"
+  - "fire"
+  - "mute"
+  - "ambulance"
 
 # Number of seconds to wait between one unit of time, when waiting to send
 # messages. In general, you want this unit to be one minute. Messages are sent
@@ -53,10 +57,10 @@ messages:
   # {channel} by a mention of @channel.
   first_responsible:
     - "{user} fikser problemet! :tada: {channel}"
-    - "{user} bryter stillheten :smile: {channel}"
     - "{user} fikser problemene! Gi den teknikeren en klem {channel}"
-    - "{user} har tatt på seg ansvaret, spander en øl eller brus på den teknikeren! {channel}"
+    - "{user} tar på seg ansvaret for å fikse, spander en øl eller brus på den teknikeren! {channel}"
     - "Kan det fikses? Klart {user} kan! :clap: {channel}"
+    - "{user} har meldt seg! {channel}"
 
   # Message sent when someone is taking responsibility to fix a technical
   # problem, but is not the first person to do so.

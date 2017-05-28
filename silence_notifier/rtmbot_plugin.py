@@ -69,7 +69,7 @@ class SilencePlugin(Plugin):
         logging.debug("Initialized SilencePlugin")
 
     def register_jobs(self):
-        self._silence_notify_job = SilenceNotifyJob(10)
+        self._silence_notify_job = SilenceNotifyJob(self.settings.sec_per_min)
         self._silence_notify_job.update_state(self._active_state)
         self.jobs.append(self._silence_notify_job)
         logging.debug("Jobs registered")
