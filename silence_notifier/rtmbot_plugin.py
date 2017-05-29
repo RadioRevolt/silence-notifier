@@ -16,20 +16,29 @@ class SilenceNotifyJob(Job):
         self._minutes_to_next = 0
         self._delays = []
         self._active_state = None
+        self.settings = None
 
     def update_state(self, new_state):
         self._active_state = new_state
+
+    def set_settings(self, settings):
+        self.settings = settings
 
     def _populate_next_delay(self):
         next_delay = self._calculate_next_delay(self._delays)
         self._delays.append(next_delay)
 
-    @staticmethod
-    def _calculate_next_delay(previous_delays):
-        """Find the next delay in the sequence 5, 5, 10, 15, 25, 40, 65, 105…"""
-        if len(previous_delays) in (0, 1):
-            return 5
+    def _calculate_next_delay(self, previous_delays):
+        num_delays = len(previous_delays)
+        warning_delays = self.settings.warning_delays
+        if num_delays < len(warning_delays):
+            # Use the delays from the settings
+            return warning_delays[num_delays]
+        elif len(warning_delays) == 1:
+            # Just repeat the one delay
+            return warning_delays[0]
         else:
+            # Do some fib stuff
             n_2 = previous_delays[-2]
             n_1 = previous_delays[-1]
             return n_2 + n_1
@@ -71,6 +80,9 @@ class SilencePlugin(Plugin):
     def register_jobs(self):
         self._silence_notify_job = SilenceNotifyJob(self.settings.sec_per_min)
         self._silence_notify_job.update_state(self._active_state)
+        self._silence_notify_job.set_settings(
+            self.settings
+        )
         self.jobs.append(self._silence_notify_job)
         logging.debug("Jobs registered")
 
@@ -97,5 +109,5 @@ class SilencePlugin(Plugin):
             self._active_state.handle_message(data)
 
     def relevant_message(self, data):
-        mentions_us = self.userid in data['text']
+        mentions_us = 'text' in data and self.userid in data['text']
         return mentions_us

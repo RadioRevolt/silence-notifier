@@ -42,3 +42,23 @@ class State(metaclass=ABCMeta):
     @abstractmethod
     def handle_timer(self, num_invocations, minutes):
         pass
+
+    def _send_change_responsible(self):
+        if self.responsible_usernames:
+            self.send(
+                "change_responsible",
+                users=self._get_reponsible_mention()
+            )
+        else:
+            self.send(
+                "change_none_responsible"
+            )
+
+    def _acknowledge_additional_responsible(self, userid, data):
+        self.send("new_responsible", user="<@{}>".format(userid), reply_to=data)
+        self._send_change_responsible()
+
+    def _get_reponsible_mention(self):
+        mentions = set(["<@{}>".format(userid)
+                        for userid in self.responsible_usernames])
+        return " ".join(mentions)

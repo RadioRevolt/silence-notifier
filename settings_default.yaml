@@ -1,4 +1,4 @@
-# Channel on which all messages should be posted.
+# Channel on which all messages (except replies) should be posted.
 # Note that the bot user must be invited to this channel by a human.
 channel: "@someone or #some-channel"
 
@@ -23,19 +23,34 @@ messages:
   # of @channel and {min} with the number of minutes there have been silence.
   warnings:
     0:
-      - "Stille på lufta under sending av {show}! Se https://confluence.smint.no/pages/viewpage.action?pageId=14024759 for en kjapp guide. {channel}"
+      - "STILLE PÅ LUFTA under sending av {show}! Se https://confluence.smint.no/pages/viewpage.action?pageId=14024759 for en kjapp guide. {channel}"
     1:
-      - "Fortsatt stille på lufta under sending av {show}! {channel}"
+      - "STILLE: Fortsatt STILLE PÅ LUFTA under sending av {show}! {channel}"
     2:
-      - "Fremdeles stille på lufta under sending av {show}. Ingen i {channel} som kan fikse? :worried:"
-      - "Ingen som kan løse dette? :grimacing: Stille på lufta under sending av {show} {channel}"
+      - "STILLE: Fremdeles STILLE PÅ LUFTA under sending av {show}. Ingen i {channel} som kan fikse? :worried:"
+      - "STILLE: Ingen som kan løse dette? :grimacing: STILLE PÅ LUFTA under sending av {show} {channel}"
+    3:
+      - "STILLE: Fortsatt STILLE PÅ LUFTA under sending av {show}… {channel}"
+      - "STILLE: Ingenting nytt å melde. Skulle vært sending av {show} {channel}"
+    4:
+      - "STILLE: Fortsatt STILLE PÅ LUFTA under sending av {show}. Hva skal man kalle dette, buss for radio? :laughing: {channel}"
+      - "STILLE: :rip: {show} :rip: {channel}"
+      - "STILLE: :mute: {show} :mute: {channel}"
     n:
-      - "Sover hele teknisk? :stuck_out_tongue: Vært stille på lufta i {min} minutter, nå under sending av {show}. :slightly_smiling_face: {channel}"
-      - "Stille på lufta i {min} minutter, nå under sending av {show} {channel}"
-      - "Framleis stille på lufta under kringkasting av {show}. Det har vore slik i {min} minuttar. Kanskje fleire kan fiksa no som eg prøvar nynorsk? :laughing: Neida, men ver så snill :grimacing: {channel}"
-      - "Beklager at jeg forstyrrer, men det er fortsatt stille på lufta :sweat_smile: Skal egentlig være {show} nå, men vært stille i {min} minutter. {channel}"
-      - "Stille på lufta i {min} minutter, nå under sending av {show}. Vil DU fikse? Sjekk ut https://confluence.smint.no/pages/viewpage.action?pageId=14024759 There will be cake :cake: {channel}"
-      - "Nå trenger lytterne lyd :stuck_out_tongue: Vært stille i {min} minutter. Skal egentlig gå {show} på lufta. {channel}"
+      - "STILLE: :fire: :fire: Vært stille i {min} minutter :fire: :fire: Skulle vært {show} :fire: :fire: Noen i {channel} som kan fikse? :fire_engine:"
+      - "STILLE: Sover hele teknisk? :stuck_out_tongue: Vært stille på lufta i {min} minutter, nå under sending av {show}. :slightly_smiling_face: {channel}"
+      - "STILLE PÅ LUFTA i {min} minutter, nå under sending av {show} {channel}"
+      - "STILLE: Framleis STILLE PÅ LUFTA under kringkasting av {show}. Det har vore slik i {min} minuttar :grimacing: {channel}"
+      - "STILLE: Beklager at jeg forstyrrer, men det er fortsatt stille på lufta :sweat_smile: Skal egentlig være {show} nå, men vært stille i {min} minutter. {channel}"
+      - "STILLE PÅ LUFTA i {min} minutter, nå under sending av {show}. Vil DU fikse? Sjekk ut https://confluence.smint.no/pages/viewpage.action?pageId=14024759 There will be cake :cake: {channel}"
+      - "STILLE: Nå trenger lytterne lyd :stuck_out_tongue: Vært stille i {min} minutter. Skal egentlig gå {show} på lufta. {channel}"
+      - "STILLE: Nei, dette er ikke mitt forsøk på å _stille_ mitt kandidatur til vervet som barsjef eller noe. Hvorfor spør du? :stuck_out_tongue: {channel}"
+      - "STILLE: Stille på blah blah under blah blah i blah blah {channel}"
+      - "STILLE: {channel} :upside_down_face: uǝɯɐǝɹʇs åd ǝllᴉʇs ʇʇɐsʇɹoℲ"
+      - "STILLE: Jeg har tro på dere, teknisk! Dere kan fikse stille på streamn :heart: {channel}"
+      - "STILLE: Jeg får ikke overtidsbetalt for dette, gjør jeg? :laughing: neida. *kremt* Stille på streamn under sending av {show} {channel}"
+      - "STILLE: Sett inn ett eller annet om at det er stille her {channel}"
+      - "STILLE: :zipper_mouth_face: {show} :zipper_mouth_face: {min} :zipper_mouth_face: {channel}"
 
   # Message sent when someone is the first to take responsibility to fix a
   # technical problem.
@@ -43,38 +58,82 @@ messages:
   # {user} is replaced by a mention of the user taking responsibility and
   # {channel} by a mention of @channel.
   first_responsible:
-    - "{user} fikser problemet! :tada: {channel}"
-    - "{user} fikser problemene! Gi den teknikeren en klem {channel}"
-    - "{user} tar på seg ansvaret for å fikse, spander en øl eller brus på den teknikeren! {channel}"
-    - "Kan det fikses? Klart {user} kan! :clap: {channel}"
-    - "{user} har meldt seg! {channel}"
+    - "FIKSES: Noen fikser problemet! :tada: {channel}"
+    - "FIKSES: Noen fikser problemene! Gi den teknikeren en klem {channel}"
+    - "FIKSES: Noen har tatt på seg ansvaret for å fikse, spander en øl eller brus på den teknikeren! {channel}"
+    - "FIKSES: Vi har noen som har meldt seg! {channel}"
 
-  # Message sent when someone is taking responsibility to fix a technical
+  # Message sent whenever the list of responsible users changes.
+
+  # {users} is replaced by mentions of all the user taking responsibility
+  # and {channel} by a mention of @channel.
+  change_responsible:
+    - "ANSVARLIGE: {users} :tada:"
+    - "ANSVARLIGE: {users} :clap:"
+    - "ANSVARLIGE: {users} :cake:"
+    - "ANSVARLEGE: {users} :flag-no:"
+    - "ANSVARLIGE: {users} :studio_microphone:"
+    - "ANSVARLEGE: {users} :balloon:"
+
+  # Message sent before "no_responsible" when the last user with
+  # responsibility has waivered their responsibility. Meant to be in the
+  # same style as "change_responsible".
+  change_none_responsible:
+    - "ANSVARLIGE: Ingen :scream:"
+    - "ANSVARLIGE: Ingen :fearful:"
+    - "ANSVARLEGE: Ingen :cold_sweat:"
+
+  # Message sent in reply when someone is taking responsibility to fix a technical
   # problem, but is not the first person to do so.
   # {user} is replaced by a mention of the user taking responsibility.
   new_responsible:
-    - "Det er notert {user} :wink:"
-    - "{user} er også registrert som ansvarlig :blush:"
+    - "Registrert!"
+    - "Notert!"
+    - "Det er notert!"
 
-  # Message sent when someone is undoing taking responsibility, but there still
+  # Message sent in reply when someone is undoing taking responsibility, but there still
   # remain people who have responsibility.
   # {user} is replaced by a mention of the user leaving responsibility.
   new_not_responsible:
-    - "Sånn, da er du ikke registrert som ansvarlig lenger {user} :+1:"
-    - "Alright, da er du ikke ansvarlig lenger {user} :slightly_smiling_face:"
+    - "Du er ikke registrert som ansvarlig lenger :slightly_smiling_face:"
 
   # Message sent when the last person is undoing taking responsibility, leaving
   # the problem with no one responsible.
   # {channel} is replaced by a mention of @channel.
   no_responsible:
-    - "Kontrabeskjed: Vi trenger fortsatt noen til å fikse stille på lufta. Se https://confluence.smint.no/pages/viewpage.action?pageId=14024759 {channel}"
+    - "STILLE: Kontrabeskjed! Vi trenger fortsatt noen til å fikse stille på lufta. Se https://confluence.smint.no/pages/viewpage.action?pageId=14024759 {channel}"
 
   # Message sent when the silence ends, presumably because the problem was
   # fixed. {mentions} is replaced by mentions of the relevant users (all if no
   # one had responsibility, those with responsibility otherwise).
   sound:
-    - "Der blei det lyd gitt :smile: {mentions}"
-    - "Da var det ikke lenger stille på lufta :tada: {mentions}"
-    - "Lyd på streamen! :microphone: {mentions}"
-    - "Lyd på lufta! :cake: {mentions}"
-    - "Stillheten er brutt :blush: Mission accomplished :sunglasses: {mentions}"
+    - "LYD: Der blei det lyd gitt :smile: {mentions}"
+    - "LYD: Da var det ikke lenger stille på lufta :tada: {mentions}"
+    - "LYD på streamn! :microphone: {mentions}"
+    - "LYD på lufta! :cake: {mentions}"
+    - "LYD: Stillheten er brutt :blush: Mission accomplished :sunglasses: {mentions}"
+
+# Set to yes to mention channel when the silence ends while no one is
+# responsible. Set to no to not have anyone mentioned in the message that
+# announces the end of the silence.
+mention_channel_when_no_responsible_and_sound: yes
+
+# Set to yes to mention channel when the first person volunteers to fix
+# the problem. Set to no to not send a separate message with at channel
+# when the first person volunteers (instead, the first volunteer is
+# treated exactly like the second volunteer).
+mention_channel_on_first_responsible: yes
+
+# Set to yes to enable periodic warnings when there is no one with responsibility.
+warn_while_no_responsible: no
+
+# Delays (in minutes) between each periodic warning.
+# Define just one value to use that delay between each message. For
+# example, by just defining 1 there will be a one minute delay between
+# each warning.
+# Define more than one value to make the value increase over time, in the
+# same way that Fibonacci does (new values equal the sum of the two previous)
+# except for values specified here (they are used as-is). For example, by
+# defining 5 and 5, the delays will be 5, 5, 10, 15, 25, 40, 65 and so on.
+warning_delays:
+  - 1

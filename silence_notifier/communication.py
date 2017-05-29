@@ -16,7 +16,7 @@ class Communicator:
         self.username = None
         self.userid = None
 
-    def send(self, message_type, num_warnings=None, **kwargs):
+    def send(self, message_type, num_warnings=None, reply_to=None, **kwargs):
         possible_unformatted_message = self.settings.messages[message_type]
 
         if num_warnings is not None:
@@ -33,14 +33,26 @@ class Communicator:
             channel=self.channel_mention,
             **kwargs
         )
-        self.send_custom(formatted_message)
+        self.send_custom(formatted_message, reply_to)
 
-    def send_custom(self, message):
+    def send_custom(self, message, reply_to=None):
+        other_message_args = {
+            'channel': self.settings.channel,
+        }
+
+        if reply_to:
+            if 'thread_ts' in reply_to:
+                thread_ts = reply_to['thread_ts']
+            else:
+                thread_ts = reply_to['ts']
+            other_message_args['thread_ts'] = thread_ts
+            other_message_args['channel'] = reply_to['channel']
+
         data = self.slack_client.api_call(
             "chat.postMessage",
-            channel=self.settings.channel,
             text=message,
-            as_user=True
+            as_user=True,
+            **other_message_args
         )
         assert data['ok'], data
         if not self.first_message_ts:

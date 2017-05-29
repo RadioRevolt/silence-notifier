@@ -7,11 +7,15 @@ THIS_SCRIPT_FOLDER = os.path.dirname(__file__)
 
 class Settings:
     def __init__(self, *config_files):
+        self._settings = dict()
+        self.load_settings(config_files)
+
+    def load_settings(self, config_files=None):
         if not config_files:
             actual_config_files = self.get_default_config_files()
         else:
             actual_config_files = [self.get_default_default_config_file()] + \
-                           config_files
+                                  config_files
 
         self._settings = self.load_from_file(actual_config_files)
 
@@ -49,4 +53,3 @@ class Settings:
             return self._settings[item]
         except KeyError:
             raise AttributeError(item)
-
