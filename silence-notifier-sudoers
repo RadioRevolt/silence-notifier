@@ -1,0 +1,3 @@
+Cmnd_Alias SILENCE_NOTIFIER_CMNDS = /bin/systemctl --no-ask-password start silence-notifier, /bin/systemctl --no-ask-password stop silence-notifier
+
+liquidsoap ALL = NOPASSWD: SILENCE_NOTIFIER_CMNDS

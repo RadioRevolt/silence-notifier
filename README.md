@@ -14,21 +14,21 @@ Varsle teknisk om stillhet på streamen
 8. Installer nødvendige pakker: `pip install -r requirements.txt`
 9. Kopier `silence-notifier.service` inn i `/etc/systemd/system` og rediger
    filstien i den så den er riktig.
-10. Kjør `sudo visudo /etc/visudo.d/silence-notifier.sudoers` og legg inn 
-    innholdet fra fila `silence-notifier.sudoers` her i kodelageret.
+10. Kjør `sudo visudo /etc/visudo.d/silence-notifier-sudoers` og legg inn
+    innholdet fra fila `silence-notifier-sudoers` her i kodelageret.
 
 ## Kjøring
 
 Skriptet kjøres med SystemD:
 
 ```sh
-sudo /bin/systemctl start silence-notifier
+sudo /bin/systemctl --no-ask-password start silence-notifier
 ```
 
 og stoppes også med SystemD:
 
 ```sh
-sudo /bin/systemctl stop silence-notifier
+sudo /bin/systemctl --no-ask-password stop silence-notifier
 ```
 
 Disse kommandoene setter du til å kjøres i `transition`-funksjoner i fallback i
