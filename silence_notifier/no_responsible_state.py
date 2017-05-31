@@ -8,7 +8,7 @@ class NoResponsibleState(State):
         if self.settings.warn_while_no_responsible or num_invocations == 0:
             self.send(
                 "warnings",
-                num_invocations,
+                minutes,
                 min=minutes,
                 show=self.communicator.get_current_show()
             )

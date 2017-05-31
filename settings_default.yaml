@@ -16,8 +16,7 @@ sec_per_min: 60
 # chosen each time.
 messages:
   # Warning messages about there being nothing on air. Entries are on the form
-  # i: in which i is the number of earlier warnings. The special n: entry
-  # catches warnings which don't have an i: entry.
+  # i: in which i is the number of minutes from which those warnings will be used.
 
   # {show} is replaced with the show currently on air, {channel} with a mention
   # of @channel and {min} with the number of minutes there have been silence.
@@ -26,17 +25,26 @@ messages:
       - "STILLE PÅ LUFTA under sending av {show}! Se https://confluence.smint.no/pages/viewpage.action?pageId=14024759 for en kjapp guide. {channel}"
     1:
       - "STILLE: Fortsatt STILLE PÅ LUFTA under sending av {show}! {channel}"
-    2:
+    7:
       - "STILLE: Fremdeles STILLE PÅ LUFTA under sending av {show}. Ingen i {channel} som kan fikse? :worried:"
       - "STILLE: Ingen som kan løse dette? :grimacing: STILLE PÅ LUFTA under sending av {show} {channel}"
-    3:
+      - "STILLE: For teknisk, dere må forstå. Vi trenger fiksing av stiiiiiiilhet nå :smile: {min} minutter, {show} {channel}"
+      - "STILLE: Framleis stille, har holdt på i {min} minuttar under sending av {show} {channel}"
+    15:
       - "STILLE: Fortsatt STILLE PÅ LUFTA under sending av {show}… {channel}"
       - "STILLE: Ingenting nytt å melde. Skulle vært sending av {show} {channel}"
-    4:
-      - "STILLE: Fortsatt STILLE PÅ LUFTA under sending av {show}. Hva skal man kalle dette, buss for radio? :laughing: {channel}"
+      - "STILLE: Har vært stille på lufta i {min} min under sending av {show} {channel}"
+      - "STILLE: Etter {min} minutter er det fortsatt stille under sending av {show} :sob: {channel}"
+      - "STILLE: stille adj. (trolig fra l.ty.) 1. som er i ro. 2. Uten bråk, uro. Kilde: ordboka {channel}"
+    25:
+      - "STILLE: Fortsatt STILLE PÅ LUFTA under sending av {show}. Hva skal man kalle dette, buss for radio? :laughing: Neida {channel}"
       - "STILLE: :rip: {show} :rip: {channel}"
       - "STILLE: :mute: {show} :mute: {channel}"
-    n:
+      - "STILLE: I {min} min har det vært stille på lufta :mute: {channel}"
+      - "STILLE: Ingenting på lufta :sob: {min} minutter, {show} {channel}"
+      - "STILLE PÅ LUFTA under sending av {show}! {channel}"
+      - "STILLE: Teknisk! Teknsik! Teknisk! Teknisk! Teknisk! :heart: Kan det fikses? Klart det kan! {channel}"
+    45:
       - "STILLE: :fire: :fire: Vært stille i {min} minutter :fire: :fire: Skulle vært {show} :fire: :fire: Noen i {channel} som kan fikse? :fire_engine:"
       - "STILLE: Sover hele teknisk? :stuck_out_tongue: Vært stille på lufta i {min} minutter, nå under sending av {show}. :slightly_smiling_face: {channel}"
       - "STILLE PÅ LUFTA i {min} minutter, nå under sending av {show} {channel}"
@@ -50,7 +58,14 @@ messages:
       - "STILLE: Jeg har tro på dere, teknisk! Dere kan fikse stille på streamn :heart: {channel}"
       - "STILLE: Jeg får ikke overtidsbetalt for dette, gjør jeg? :laughing: neida. *kremt* Stille på streamn under sending av {show} {channel}"
       - "STILLE: Sett inn ett eller annet om at det er stille her {channel}"
-      - "STILLE: :zipper_mouth_face: {show} :zipper_mouth_face: {min} :zipper_mouth_face: {channel}"
+      - "STILLE: :zipper_mouth_face: {show} :zipper_mouth_face: {min} min :zipper_mouth_face: {channel}"
+      - "STILLE: I will build a stream to keep the silence out of our radio. And the Finansstyret will pay for it! Make Radio Revolt great again!!! {channel}"
+      - "STILLE PÅ STREAMN i {min} minutter :mute: {channel}"
+      - "STILLE PÅ STREAMEN i {min} minutter. Skulle vært {show} :rip: {channel}"
+
+  # Set to yes to use all warnings up to and including the highest i: for which
+  # i <= minutes of warning. Set to no to use only the highest matching i:.
+  warnings_cumulative: no
 
   # Message sent when someone is the first to take responsibility to fix a
   # technical problem.
@@ -74,6 +89,7 @@ messages:
     - "ANSVARLEGE: {users} :flag-no:"
     - "ANSVARLIGE: {users} :studio_microphone:"
     - "ANSVARLEGE: {users} :balloon:"
+    - "ANSVARLEGE: {users} :microphone:"
 
   # Message sent before "no_responsible" when the last user with
   # responsibility has waivered their responsibility. Meant to be in the
@@ -116,16 +132,16 @@ messages:
 # Set to yes to mention channel when the silence ends while no one is
 # responsible. Set to no to not have anyone mentioned in the message that
 # announces the end of the silence.
-mention_channel_when_no_responsible_and_sound: yes
+mention_channel_when_no_responsible_and_sound: no
 
 # Set to yes to mention channel when the first person volunteers to fix
 # the problem. Set to no to not send a separate message with at channel
 # when the first person volunteers (instead, the first volunteer is
 # treated exactly like the second volunteer).
-mention_channel_on_first_responsible: yes
+mention_channel_on_first_responsible: no
 
 # Set to yes to enable periodic warnings when there is no one with responsibility.
-warn_while_no_responsible: no
+warn_while_no_responsible: yes
 
 # Delays (in minutes) between each periodic warning.
 # Define just one value to use that delay between each message. For

@@ -16,16 +16,21 @@ class Communicator:
         self.username = None
         self.userid = None
 
-    def send(self, message_type, num_warnings=None, reply_to=None, **kwargs):
+    def send(self, message_type, num_minutes=None, reply_to=None, **kwargs):
         possible_unformatted_message = self.settings.messages[message_type]
 
-        if num_warnings is not None:
-            try:
-                possible_unformatted_message = \
-                    possible_unformatted_message[num_warnings]
-            except KeyError:
-                possible_unformatted_message = \
-                    possible_unformatted_message['n']
+        if num_minutes is not None:
+            matching_messages = []
+            max_from_minute = 0
+            for from_minute, messages in possible_unformatted_message.items():
+                if from_minute <= num_minutes:
+                    if self.settings.messages['warnings_cumulative']:
+                        matching_messages.extend(messages)
+                    elif from_minute >= max_from_minute:
+                        matching_messages = messages
+                        max_from_minute = from_minute
+
+            possible_unformatted_message = matching_messages
 
         unformatted_message = random.choice(possible_unformatted_message)
 
