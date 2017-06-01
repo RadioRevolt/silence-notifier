@@ -1,4 +1,5 @@
 import logging
+import sys
 
 from rtmbot.core import Plugin, Job
 
@@ -7,6 +8,7 @@ from silence_notifier.settings import Settings
 from silence_notifier.communication import Communicator
 from silence_notifier import signal_handler
 from silence_notifier.some_responsible_state import SomeResponsibleState
+from silence_notifier.liquidsoap_process import LiquidSoapProcess
 
 
 class SilenceNotifyJob(Job):
@@ -18,6 +20,7 @@ class SilenceNotifyJob(Job):
         self._delays = []
         self._active_state = None
         self.settings = None
+        self._ls_proc = None
 
     def update_state(self, new_state):
         """Update which state is the currently active one.
@@ -34,6 +37,12 @@ class SilenceNotifyJob(Job):
             settings: Instance of settings.Settings
         """
         self.settings = settings
+        try:
+            self._ls_proc = LiquidSoapProcess(self.settings.liquidsoap_script)
+        except ValueError:
+            logging.exception("No LiquidSoap process to track")
+            sys.exit("No LiquidSoap process to track")
+        logging.debug("Settings set on SilenceNotifyJob")
 
     def _populate_next_delay(self):
         """Extend self._delays with the next delay."""
@@ -62,18 +71,21 @@ class SilenceNotifyJob(Job):
 
     def run(self, slack_client):
         """Function run by RtmBot every minute."""
-        self._minutes_to_next -= 1
-        logging.debug("Regular job run. Minutes to next warning: " +
-                      str(self._minutes_to_next))
-        if self._minutes_to_next <= 0 and self._active_state:
-            self._active_state.handle_timer(
-                len(self._delays),
-                sum(self._delays)
-            )
-            # Prepare to wait for next warning
-            self._populate_next_delay()
-            self._minutes_to_next = self._delays[-1]
-            logging.debug("Warning sent. New delays: " + str(self._delays))
+        if not self._ls_proc.is_running():
+            self._active_state.handle_not_running()
+        else:
+            self._minutes_to_next -= 1
+            logging.debug("Regular job run. Minutes to next warning: " +
+                          str(self._minutes_to_next))
+            if self._minutes_to_next <= 0 and self._active_state:
+                self._active_state.handle_timer(
+                    len(self._delays),
+                    sum(self._delays)
+                )
+                # Prepare to wait for next warning
+                self._populate_next_delay()
+                self._minutes_to_next = self._delays[-1]
+                logging.debug("Warning sent. New delays: " + str(self._delays))
         return []
 
 

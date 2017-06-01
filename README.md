@@ -7,8 +7,8 @@ Varsle teknisk om stillhet på streamen
 2. Kopier `rtmbot.conf.template` og kall den `rtmbot.conf`
 3. Lag en ny fil kalt `settings.yaml`
 4. Rediger `rtmbot.conf`, spesifikt legg inn Slack-nøkkel
-5. Rediger `settings.yaml`, og redefiner `channel` og `rr_api`. Redefiner også
-   andre innstillinger du føler for å endra fra `settings_default.yaml`.
+5. Rediger `settings.yaml`, og redefiner `channel`, `liquidsoap_script` og `rr_api`. Redefiner også
+   andre innstillinger du føler for å endre fra `settings_default.yaml`.
 6. Lag et virtualenv: `virtualenv -p python3 venv` eller noe liknende
 7. Tre inn i det virtuelle miljøet: `. venv/bin/activate`
 8. Installer nødvendige pakker: `pip install -r requirements.txt`

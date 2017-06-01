@@ -1,3 +1,5 @@
+import logging
+import sys
 from abc import ABCMeta, abstractmethod
 
 
@@ -75,6 +77,12 @@ class State(metaclass=ABCMeta):
     def handle_timer(self, num_invocations, minutes):
         """Called when it is time to send a warning, if applicable."""
         pass
+
+    def handle_not_running(self):
+        """Called when the LiquidSoap process has quit running."""
+        self.send("not_running")
+        logging.debug("LiquidSoap is no longer running, exiting")
+        sys.exit(0)
 
     def _send_change_responsible(self):
         """Send message summarizing who is recorded as responsible for fixing

@@ -5,4 +5,4 @@ Description=Utility warning teknisk on Slack about silence on the radio stream
 Type=simple
 User=liquidsoap
 ExecStart=/bin/sh -c "cd <path>; . venv/bin/activate; rtmbot"
-Restart=always
+Restart=on-failure

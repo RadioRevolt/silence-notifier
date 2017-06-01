@@ -5,6 +5,10 @@ channel: "@someone or #some-channel"
 # Location of Radio Revolt REST API, without the version specifier
 rr_api: "https://example.com"
 
+# Absolute path to the script read by the LiquidSoap process we will be
+# activated by.
+liquidsoap_script: "/path/to/your_script.liq"
+
 # Number of seconds to wait between one unit of time, when waiting to send
 # messages. In general, you want this unit to be one minute. Messages are sent
 # with delays between them on 5, 5, 10, 15, 25, 40, 65, 105 etc. units.
@@ -128,6 +132,11 @@ messages:
     - "LYD på streamn! :microphone: {mentions}"
     - "LYD på lufta! :cake: {mentions}"
     - "LYD: Stillheten er brutt :blush: Mission accomplished :sunglasses: {mentions}"
+
+  # Message sent when quitting silence-notifier because the LiquidSoap process
+  # is no longer running.
+  not_running:
+    - "AVSLUTTET: LiquidSoap-prosessen kjører ikke lenger. Avbryter stille på lufta."
 
 # Set to yes to mention channel when the silence ends while no one is
 # responsible. Set to no to not have anyone mentioned in the message that
