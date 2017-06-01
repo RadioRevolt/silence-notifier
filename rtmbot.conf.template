@@ -2,5 +2,7 @@ DEBUG: False
 
 SLACK_TOKEN: "xoxb-111111111111-2222222222222222222"
 
+LOGFILE: "/path/to/silence-notifier/logs/silence-notifier.log"
+
 ACTIVE_PLUGINS:
   - silence_notifier.rtmbot_plugin.SilencePlugin

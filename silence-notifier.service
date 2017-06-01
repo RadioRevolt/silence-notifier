@@ -3,6 +3,7 @@ Description=Utility warning teknisk on Slack about silence on the radio stream
 
 [Service]
 Type=simple
-User=liquidsoap
-ExecStart=/bin/sh -c "cd <path>; . venv/bin/activate; rtmbot"
+User=silence-notifier
+WorkingDirectory=/path/to/silence-notifier
+ExecStart=/bin/sh -c ". venv/bin/activate; rtmbot"
 Restart=on-failure
