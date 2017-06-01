@@ -25,13 +25,13 @@ Varsle teknisk om stillhet på streamen
 Skriptet kjøres med SystemD:
 
 ```sh
-sudo /bin/systemctl start silence-notifier
+sudo --non-interactive /bin/systemctl start silence-notifier
 ```
 
 og stoppes også med SystemD:
 
 ```sh
-sudo /bin/systemctl stop silence-notifier
+sudo --non-interactive /bin/systemctl stop silence-notifier
 ```
 
 Disse kommandoene setter du til å kjøres i `transition`-funksjoner i fallback i
