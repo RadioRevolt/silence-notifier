@@ -14,7 +14,7 @@ Varsle teknisk om stillhet på streamen
 8. Installer nødvendige pakker: `pip install -r requirements.txt`
 9. Kopier `silence-notifier.service` inn i `/etc/systemd/system` og rediger
    filstien i den så den er riktig (`WorkingDirectory=...`).
-10. Kjør `sudo visudo /etc/visudo.d/silence-notifier-sudoers` og legg inn
+10. Kjør `sudo visudo -f /etc/sudoers.d/silence-notifier-sudoers` og legg inn
     innholdet fra fila `silence-notifier-sudoers` her i kodelageret.
 11. Lag bruker for `silence-notifier`: `sudo adduser silence-notifier --system --group`
 11. Lag mappa `logs`, og gi `silence-notifier`-brukeren skriverettigheter til den:
