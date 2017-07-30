@@ -131,8 +131,8 @@ class Communicator:
 
     def get_current_show(self):
         """Get the name of the show currently active on radio."""
-        r = requests.get(self.settings.rr_api + self.current_shows_uri)
         try:
+            r = requests.get(self.settings.rr_api + self.current_shows_uri, timeout=10.0)
             r.raise_for_status()
         except Exception as e:
             logging.exception("Error occurred while retrieving current show")
