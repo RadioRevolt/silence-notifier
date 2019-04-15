@@ -1,5 +1,5 @@
 # silence-notifier
-Varsle teknisk om stillhet på streamen
+Varsle teknisk om stillhet på streamen. Erstattet vår 2019 av https://github.com/Studentmediene/silence-notifier-teams grunnet migrering fra Slack til Microsoft Teams.
 
 ## Oppsett
 
